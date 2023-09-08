@@ -1,6 +1,10 @@
 {
-  "name": "loja",
+  "name": "nest-criando-api-restful",
   "version": "0.0.1",
+  "engines": {
+    "node": ">=18.17.1",
+    "npm": ">=9.6.7"
+  },
   "description": "",
   "author": "",
   "private": true,
