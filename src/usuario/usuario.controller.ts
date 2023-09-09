@@ -3,7 +3,7 @@ import { UsuarioRepository } from './usuario.repository';
 
 @Controller('usuarios')
 export class UsuarioController {
-  private readonly usuarioRepository = new UsuarioRepository();
+  constructor(private readonly usuarioRepository: UsuarioRepository) {}
 
   @Post()
   async criaUsuario(@Body() dadosDoUsuario) {
