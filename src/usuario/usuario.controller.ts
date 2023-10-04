@@ -3,6 +3,7 @@ import { Body, Controller, Get, Post } from '@nestjs/common';
 import { UsuarioRepository } from './usuario.repository';
 import { CriaUsuarioDTO } from './dto/CriaUsuario.dto';
 import { UsuarioEntity } from './usuario.entity';
+import { ListaUsuarioDto } from './dto/ListaUsuario.dto';
 
 @Controller('usuarios')
 export class UsuarioController {
@@ -19,13 +20,19 @@ export class UsuarioController {
     this.usuarioRepository.salvar(usuarioEntity);
 
     return {
-      id: usuarioEntity.id,
-      message: 'Usuário criado com sucesso',
+      usuario: new ListaUsuarioDto(usuarioEntity.id, usuarioEntity.nome),
+      mensagem: 'Usuário criado com sucesso',
     };
   }
 
   @Get()
   async listaUsuarios() {
-    return this.usuarioRepository.listar();
+    const usuariosSalvos = await this.usuarioRepository.listar();
+
+    const usuariosLista = usuariosSalvos.map(
+      (usuario) => new ListaUsuarioDto(usuario.id, usuario.nome),
+    );
+
+    return usuariosLista;
   }
 }
